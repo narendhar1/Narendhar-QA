@@ -1,0 +1,207 @@
+Framework in UFT
+----------------
+
+	In our uft there are four types of frameworks.
+
+1) Data Driven Framework
+
+2) Keyword Driven Framework
+
+3) Hybrid Driven Framework
+
+4) Modular Driven Framework
+
+
+How to Develop the datadriven framework in our uft
+---------------------------------------------------
+
+	Using Data Driven Framework we are test the our project forms using multiple test data.
+
+In 3 models we are develop the data driven framework
+
+1) Data Driven Framework through the Global Sheet / Excel Sheet
+
+2) Data Driven Framework through Flat File (NotePad File)
+
+3) Data Driven Framework through keywords
+
+
+1) Data Driven Framework through the Global Sheet 
+==================================================
+
+1) Create the flight login form recording script.
+
+2) Open Global Sheet
+
+3) double click on A column give the column name
+
+4) double click on B column give the column name
+
+5) u can maintain the any five username and password
+
+uname	passwd
+----	------
+eswar	mercury
+mahesh	mercury
+shiva	mercury
+anil	mercury
+bhavani	mercury
+
+
+6) Goto Tools Select Data Driver 
+
+7) select uname and select parametrization.
+
+8) Select the parameterization all
+
+9) Select Parameter
+
+10) Select Global Sheet
+
+11) select column name global sheet name:
+
+12) Click on ok and click on finish
+
+13) same as we are maintatain the password.
+
+Example:
+-------
+
+invokeapplication "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4b.exe"
+Dialog("Login").Activate 
+wait(3)
+Dialog("Login").WinEdit("Agent Name:").Set DataTable("uname",dtGlobalSheet)
+Dialog("Login").WinEdit("Password:").SetSecure DataTable("passwd", dtGlobalSheet) 
+wait(3)
+Dialog("Login").WinButton("OK").Click 
+Window("Flight Reservation").Activate 
+Window("Flight Reservation").Close
+
+
+1.1) Data Driven Framework through the Excel Sheet
+================================================================
+
+Dim excel_obj,workbook_obj,worksheet_obj,rcount
+
+set excel_obj=createobject("Excel.Application")
+
+set workbook_obj=excel_obj.Workbooks.Open("D:\loginusernames.xls")
+
+Set worksheet_obj=workbook_obj.Worksheets(1)
+
+rcount=worksheet_obj.usedRange.Rows.count
+
+Msgbox rcount
+
+For r = 2 To rcount Step 1
+	
+invokeapplication "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4b.exe"
+Dialog("Login").Activate
+Dialog("Login").WinEdit("Agent Name:").Set worksheet_obj.cells(r,1)
+Dialog("Login").WinEdit("Password:").Set worksheet_obj.cells(r,2) 
+wait(3)
+Dialog("Login").WinButton("OK").Click 
+Window("Flight Reservation").Activate 
+Window("Flight Reservation").Close
+
+Next
+
+
+
+2) Data Driven Framework through Flat File (NotePad File)
+==========================================================
+
+
+Dim fso,f,x,a
+
+Set fso=createobject("scripting.filesystemobject")
+
+Set f=fso.OpenTextFile("D:\usernames.txt")
+
+While f.AtEndOfLine<> true
+	
+	x=f.ReadLine
+	
+	a=split(x," ")
+	
+	
+invokeapplication "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4b.exe"
+Dialog("Login").Activate 
+Dialog("Login").WinEdit("Agent Name:").Set a(0)
+Dialog("Login").WinEdit("Password:").Set a(1) 
+wait(3)
+Dialog("Login").WinButton("OK").Click 
+Window("Flight Reservation").Activate 
+Window("Flight Reservation").Close
+
+	
+Wend
+
+
+
+
+3) Data Driven Framework through keywords
+=========================================
+
+
+Dim uname,password
+
+For i = 1 To 2 Step 1
+	
+uname=inputbox("Enter username")
+
+password=inputbox("Enter Password")
+	
+invokeapplication "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4b.exe"
+Dialog("Login").Activate 
+Dialog("Login").WinEdit("Agent Name:").Set uname
+Dialog("Login").WinEdit("Password:").Set password 
+wait(3)
+Dialog("Login").WinButton("OK").Click 
+Window("Flight Reservation").Activate 
+Window("Flight Reservation").Close
+	
+Next
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

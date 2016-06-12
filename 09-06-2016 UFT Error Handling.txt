@@ -1,0 +1,289 @@
+Error Handling in UFT
+---------------------
+
+In Our UFT Two Types of Errors
+1) Expected Errors : Like invalid inputs errors
+2) Un Expected Errors :
+
+	a) Resource Response
+	b) Insufficent Resource
+	c) Availbility of the Resource
+
+
+
+How to Handling The Errors in UFT
+---------------------------------
+
+They are six models to handling errors
+
+1) Unsing Conditional statements
+
+	a) IF , IF -Else
+
+2) Using Some Built in Functions
+
+3) Using Option Explicit
+
+4) Exit
+
+5) On Error Resume Next
+
+6) Using Recovery Scenario Manager
+
+
+1) Using Conditional statements
+--------------------------------
+
+We checking whether condition is satiesfied or not if condition statiesfied goto IF Process suppose if the condition is not satiesfied goto else process
+
+
+
+
+If Not Dialog("Login").Exist(3) Then
+	SystemUtil.Run "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4a.exe","","C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app",""
+End If
+
+Dialog("Login").Activate @@ hightlight id_;_198268_;_script infofile_;_ZIP::ssf1.xml_;_
+Dialog("Login").WinEdit("Agent Name:").Set "abed" @@ hightlight id_;_132720_;_script infofile_;_ZIP::ssf2.xml_;_
+Dialog("Login").WinEdit("Password:").SetSecure "56ec243e34ae580899191845a08852cbbefd0b3f" @@ hightlight id_;_132726_;_script infofile_;_ZIP::ssf3.xml_;_
+Dialog("Login").WinButton("OK").Click @@ hightlight id_;_132724_;_script infofile_;_ZIP::ssf4.xml_;_
+Window("Flight Reservation").Activate @@ hightlight id_;_263804_;_script infofile_;_ZIP::ssf5.xml_;_
+Window("Flight Reservation").Close
+
+
+
+2) Using Some Built In Fucntion 
+--------------------------------
+
+Dim a,b,c
+
+a=inputbox("Enter A Value ")
+b=inputbox("Enter B Value ")
+
+If isNumeric(a)=true and isNumeric(b)=true Then	
+	c= cdbl(a)+cdbl(b)
+	Msgbox c
+Else
+	Msgbox "Invalid Input values"
+End If
+
+
+3) Using Option Explicit
+----------------------------
+
+-> It Forces Delcartion of all variable in a script
+
+Option Explicit
+Dim qty,rate,total
+
+qty=5
+rate=6
+
+total=qty*rate
+
+Msgbox total
+
+
+4) Using Exit/Wait Method
+------------------
+
+For ordernumber = 1 To 5 Step 1
+
+Window("Flight Reservation").Activate
+Window("Flight Reservation").WinButton("Button").Click @@ hightlight id_;_460684_;_script infofile_;_ZIP::ssf2.xml_;_
+Window("Flight Reservation").Dialog("Open Order").WinCheckBox("Order No.").Set "ON" @@ hightlight id_;_329662_;_script infofile_;_ZIP::ssf3.xml_;_
+Window("Flight Reservation").Dialog("Open Order").WinEdit("Edit").Set ordernumber @@ hightlight id_;_2230026_;_script infofile_;_ZIP::ssf4.xml_;_
+wait(3)
+Window("Flight Reservation").Dialog("Open Order").WinButton("OK").Click
+	
+Next
+
+Window("Flight Reservation").Exist(5)
+
+
+ @@ hightlight id_;_1247112_;_script infofile_;_ZIP::ssf5.xml_;_
+
+
+
+
+5) On Error Resume Next
+-----------------------
+if any error is there . skip the error and continue the execution
+
+
+On Error resume next
+
+Dim a,b,c
+
+a=p
+b=200
+c=a+b
+
+Msgbox c
+
+
+
+6) Recovery Scenario Manager
+----------------------------
+
+They are 4 types triggers events
+
+a) Pop - up window
+
+b) object state
+
+c) Test Run Error
+
+d) Application crashes
+
+
+Recovery Operations
+-------------------
+1) Keyboard or mouse
+2) Function Call
+3) Test Run close
+4) restart the microsoft windows
+
+
+
+1) Pop - Up windows
+-------------------
+
+Dim resultmessage
+
+invokeapplication "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4a.exe"
+Dialog("Login").Activate @@ hightlight id_;_329678_;_script infofile_;_ZIP::ssf1.xml_;_
+Dialog("Login").WinEdit("Agent Name:").Set "mahe" @@ hightlight id_;_395184_;_script infofile_;_ZIP::ssf2.xml_;_
+Dialog("Login").WinEdit("Password:").SetSecure "56f1692da18f19030cf80e867ea4b60b0f3c8379" @@ hightlight id_;_395060_;_script infofile_;_ZIP::ssf3.xml_;_
+Dialog("Login").WinButton("OK").Click
+
+If window("Flight Reservation").Exist(5) Thens
+	window("Flight Reservation").Activate
+Window("Flight Reservation").Close
+resultmessage ="Login sucessfully..."
+else
+Dialog("Login").Activate @@ hightlight id_;_854134_;_script infofile_;_ZIP::ssf5.xml_;_
+Dialog("Login").WinButton("Cancel").Click @@ hightlight id_;_919390_;_script infofile_;_ZIP::ssf6.xml_;_
+resultmessage="Login Faild"
+End If
+
+Msgbox resultmessage
+
+
+
+Step 1 : 
+
+	Goto resource -> select recovery scenario manager
+
+step 2 :
+
+	Click on new scenario oprion - click next 
+
+step 3:
+	select pop window radio button - click next
+
+Step 4:
+
+	select hand icon - select your pop error window - click next - click next
+
+step 5: 
+
+	select keyboard and mouse operation - click on next
+
+Step 6:
+
+	select click button with label - select your pop window button -click next - click next
+
+stp 7: 
+
+	remove the tick mark on add another recovery scenario - click next
+
+step 8:
+
+	select processd to next step - click next
+
+step 9:
+
+	Give scenatio name - click on finish
+
+Step 10 :
+
+	click on save button save the your recovery scenario in ur system
+
+After completed saving 
+
+add your recovery scenario to your testfile
+
+
+step 11 :
+
+	goto file - select setting - recovery - click mark on "+" button add the scenario to test 
+
+
+
+
+Object State
+-------------
+
+
+Window("Flight Reservation").Activate @@ hightlight id_;_1771506_;_script infofile_;_ZIP::ssf1.xml_;_
+Window("Flight Reservation").WinButton("Button").Click @@ hightlight id_;_919250_;_script infofile_;_ZIP::ssf2.xml_;_
+Window("Flight Reservation").Dialog("Open Order").WinCheckBox("Order No.").Set "ON" @@ hightlight id_;_1050314_;_script infofile_;_ZIP::ssf3.xml_;_
+Window("Flight Reservation").Dialog("Open Order").WinEdit("Edit").Set datatable("ordernumber",1) @@ hightlight id_;_1181450_;_script infofile_;_ZIP::ssf4.xml_;_
+Window("Flight Reservation").Dialog("Open Order").WinButton("OK").Click @@ hightlight id_;_1115942_;_script infofile_;_ZIP::ssf5.xml_;_
+wait(3)
+Window("Flight Reservation").Activate @@ hightlight id_;_1771506_;_script infofile_;_ZIP::ssf6.xml_;_
+
+
+
+3) Test run error
+
+4) application 
+
+
+Using Database connection program
+---------------------------------
+
+
+Dim con,rs
+
+Set con = createobject("adodb.connection")
+Set rs = createobject("adodb.recordset")
+
+con.Provider="microsoft.jet.oledb.4.0"
+con.Open "C:\Users\MAHESH\Desktop\LDB.mdb"
+
+rs.Open "select * from Login",con
+
+
+Do While not rs.EOF
+
+invokeapplication "C:\Program Files (x86)\HP\Unified Functional Testing\samples\flight\app\flight4a.exe"
+Dialog("Login").Activate @@ hightlight id_;_264474_;_script infofile_;_ZIP::ssf1.xml_;_
+Dialog("Login").WinEdit("Agent Name:").Set rs.Fields("Uname") @@ hightlight id_;_198960_;_script infofile_;_ZIP::ssf2.xml_;_
+Dialog("Login").WinEdit("Password:").SetSecure rs.Fields("Passwd") @@ hightlight id_;_198964_;_script infofile_;_ZIP::ssf3.xml_;_
+Dialog("Login").WinButton("OK").Click @@ hightlight id_;_198956_;_script infofile_;_ZIP::ssf4.xml_;_
+Window("Flight Reservation").Close
+
+wait(3)
+rs.MoveNext
+
+Loop 
+	
+
+
+
+AOM ( Automation object model)
+-------------------------------
+we can execute the test case atime 
+
+
+
+
+Objectspy
+
+
+
+
+
+

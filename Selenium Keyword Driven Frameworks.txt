@@ -1,0 +1,262 @@
+Keyword Driven Framework
+------------------------
+
+	The keyword driven is used to test project number of different ways or we are maintain the testcase process in keywrod driven framework.
+
+
+Test the Gmail Login using Keyword Driven Framework
+----------------------------------------------------
+1) Excel Sheet
+
+TestCaseName		Property Type	Property value		TestData
+-------------------------------------------------------------------------
+Open_Browser		null		null			FireFox
+Enter_Url		null		null			http://www.google.co.in
+Click_On_Link		linktext	Sign in			null
+Enter_text		id		Email			maheshprojectdeveloper@gmail.com
+Click_On_Button		id		next			null
+Enter_text		name		Passwd			lakshmi@143
+Click_On_Button		id		signIn			null
+
+
+2) Project
+
+	a) TestCase Process Class
+
+	b) Read Excel Sheet Process Class
+
+	c) Execution class
+
+
+
+TestCase Process
+================
+
+package gmailPackage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class TestCaseProcess 
+{
+	WebDriver d;
+	
+	public void Open_Browser(String tdata)
+	{
+		if(tdata.equalsIgnoreCase("FireFox"))
+		{
+			d=new FirefoxDriver();
+		}
+		else if(tdata.equalsIgnoreCase("Chrome"))
+		{
+			// d=new ChromeDriver();
+		}		
+		
+	}
+	
+	public void Enter_Url(String tdata)
+	{
+		d.get(tdata);
+	}
+	
+	public void Click_On_Link(String ptype,String pvalue)
+	{
+		By e;
+		e=weblocators(ptype,pvalue);		
+		d.findElement(e).click();
+	}
+	
+	public void Enter_text(String ptype,String pvalue,String tdata)
+	{
+		By e;
+		e=weblocators(ptype,pvalue);		
+		d.findElement(e).sendKeys(tdata);
+	}
+	
+	public void Click_On_Button(String ptype,String pvalue)
+	{
+		By e;
+		e=weblocators(ptype,pvalue);		
+		d.findElement(e).click();		
+	}
+	
+	public By weblocators(String ptype,String pvalue)
+	{
+		By b;
+		
+		switch(ptype)
+		{
+		case "id":
+			b=By.id(pvalue);
+			break;
+		case "name":
+			b=By.name(pvalue);
+			break;
+		case "xpath":
+			b=By.xpath(pvalue);
+			break;
+		case "linktext":
+			b=By.linkText(pvalue);
+			break;
+		case "css":
+			b=By.cssSelector(pvalue);
+			break;
+		default:
+			b=null;
+			break;
+		}
+		
+		return b;
+	}
+	
+	
+
+}
+
+
+ReadExcelSheet
+==============
+
+package gmailPackage;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+public class ReadExcelSheetProcess 
+{
+	
+	// create the workbook and sheet variables	
+	Workbook wb;
+	Sheet sh;
+	
+	// open SheetFunction
+	public void OpenSheet(String filepath) throws BiffException, IOException
+	{
+		FileInputStream fs=new FileInputStream(filepath);		
+		wb=Workbook.getWorkbook(fs);		
+		sh=wb.getSheet(0);		
+	}
+	
+	// Get Cell values
+	public String GetValueFromCell(int r,int c)
+	{
+		String cdata=sh.getCell(c, r).getContents();		
+		return cdata;
+	}
+	
+	// Get Row count
+	public int Rowcount()
+	{
+		int r=sh.getRows();
+		return r;
+	}
+	
+	// Get ColumnCount
+	public int ColomnCount()
+	{
+		int c=sh.getColumns();
+		return c;
+	}
+	
+	
+	
+	
+}
+
+
+Execution File
+==============
+
+package gmailPackage;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import jxl.read.biff.BiffException;
+
+public class ExecutionFile 
+{
+
+	@Test(priority=1)
+	public void FinalProcess() throws BiffException, IOException, InterruptedException
+	{
+		
+		// OpenExcel Sheet
+		ReadExcelSheetProcess mysheet=new ReadExcelSheetProcess();
+		String path="D:/GmailKeywordTestCases3.xls";
+		mysheet.OpenSheet(path);
+		
+		int rcount=mysheet.Rowcount();
+		int ccount=mysheet.ColomnCount();
+		
+		System.out.println("Row Count : "+rcount);
+		System.out.println("Column count : "+ccount);
+		
+		String tname="";
+		String ptype="";
+		String pvalue="";
+		String tdata="";
+		
+		// create the test case function object
+		TestCaseProcess tobj=new TestCaseProcess();
+		
+		//Excel Sheet Loop
+		for(int r=1;r<rcount;r++)
+		{
+			// Get TestCaseName
+			tname=mysheet.GetValueFromCell(r, 0);
+			
+			// Get ptype,pvalue,tdata
+			for(int c=1;c<ccount;c++)
+			{
+				if(c==1)
+				{
+					ptype=mysheet.GetValueFromCell(r, c);
+				}
+				else if(c==2)
+				{
+					pvalue=mysheet.GetValueFromCell(r, c);
+				}
+				else if(c==3)
+				{
+					tdata=mysheet.GetValueFromCell(r, c);
+				}
+			}
+			
+			System.out.println(tname + " "+ptype+""+pvalue+""+tdata);
+			Thread.sleep(7000);
+			switch(tname)
+			{
+			case "Open_Browser":
+				tobj.Open_Browser(tdata);
+				break;
+			case "Enter_Url" :
+				tobj.Enter_Url(tdata);
+				break;
+			case "Click_On_Link":
+				tobj.Click_On_Link(ptype, pvalue);
+				break;
+			case "Enter_text":
+				tobj.Enter_text(ptype, pvalue, tdata);
+				break;
+			case "Click_On_Button":
+				tobj.Click_On_Button(ptype, pvalue);
+				break;
+			default:
+				System.out.println("No TestCase");
+				break;
+			}
+			
+		}
+		
+		
+	}
+}
+
+
