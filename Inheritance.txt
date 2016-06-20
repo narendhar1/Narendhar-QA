@@ -1,0 +1,281 @@
+Inheritance in java
+-------------------
+
+Single Example :
+----------------
+
+package Inheritancepackage;
+
+public class A 
+{
+	public void Display_A()
+	{
+		System.out.println("This is A class");
+		
+	}
+}
+
+
+package Inheritancepackage;
+
+public class B extends A
+{
+	
+	public void Display_B()
+	{
+		System.out.println("This is B class");
+		
+	}
+
+}
+
+
+
+package Inheritancepackage;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		// A obj_A=new A();
+		B obj_B=new B();
+		
+	    obj_B.Display_A();
+		obj_B.Display_B();
+		
+		
+	}
+
+}
+
+
+
+
+
+Multilevel Inheritance
+-----------------------
+
+package Inheritancepackage;
+
+public class A 
+{
+	public void Display_A()
+	{
+		System.out.println("This is A class");
+		
+	}
+}
+
+
+package Inheritancepackage;
+
+public class B extends A
+{
+	
+	public void Display_B()
+	{
+		System.out.println("This is B class");
+		
+	}
+
+}
+
+
+
+package Inheritancepackage;
+
+public class C extends B
+{
+	
+	public void Display_C()
+	{
+		System.out.println("This is C class");
+		
+	}
+
+}
+
+
+
+package Inheritancepackage;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		// A obj_A=new A();
+		// B obj_B=new B();
+		
+		C obj=new C();
+		
+	    obj.Display_A();
+	    obj.Display_B();
+	    obj.Display_C();
+		
+		
+	}
+
+}
+
+
+Hierarchical Inheritance
+------------------------
+
+
+
+package Inheritancepackage;
+
+public class A 
+{
+	public void Display_A()
+	{
+		System.out.println("This is A class");
+		
+	}
+}
+
+
+package Inheritancepackage;
+
+public class B extends A
+{
+	
+	public void Display_B()
+	{
+		System.out.println("This is B class");
+		
+	}
+
+}
+
+package Inheritancepackage;
+
+public class C extends A
+{
+	
+	public void Display_C()
+	{
+		System.out.println("This is C class");
+		
+	}
+
+}
+
+
+
+package Inheritancepackage;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		// A obj_A=new A();
+		B obj_B=new B();		
+		C obj_C=new C();
+		
+	    
+		obj_B.Display_A();
+		obj_B.Display_B();
+		
+		obj_C.Display_A();
+		obj_C.Display_C();
+	}
+
+}
+
+
+
+
+Inheritance with constructor
+----------------------------
+
+package Inheritancepackage;
+
+public class A 
+{
+	public A()
+	{
+		System.out.println("This is A class");
+		
+	}
+}
+
+
+
+package Inheritancepackage;
+
+public class B extends A
+{
+	
+	public B()
+	{
+		System.out.println("This is B class");
+		
+	}
+
+}
+
+
+
+package Inheritancepackage;
+
+public class C extends A
+{
+	
+	public C()
+	{
+		System.out.println("This is C class");
+		
+	}
+
+}
+
+
+
+package Inheritancepackage;
+
+public class MainClass {
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		// A obj_A=new A();
+		B obj_B=new B();		
+		C obj_C=new C();
+		
+	
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

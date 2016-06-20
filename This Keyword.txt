@@ -1,0 +1,122 @@
+
+
+Example : With out this keyword
+-------------------------------
+
+package Examples;
+
+public class Student1 
+{
+	
+	int sno;
+	String sname;
+	
+	Student1(int sno,String sname)
+	{
+		sno=sno;
+		sname=sname;
+	}
+	
+	void display()
+	{
+		System.out.println("Student number : "+sno);
+		System.out.println("Student Name : "+sname);
+	}
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		Student1 obj1=new Student1(100,"mahesh");
+		Student1 obj2=new Student1(200,"rama");
+		
+		obj1.display();
+		obj2.display();
+
+	}
+
+}
+
+
+
+
+Example 2 : This keyword 
+------------------------
+
+
+package Examples;
+
+public class Student1 
+{
+	
+	int sno;
+	String sname;
+	
+	Student1(int sno,String sname)
+	{
+	this.sno=sno;
+	this.sname=sname;
+	}
+	
+	void display()
+	{
+		System.out.println("Student number : "+sno);
+		System.out.println("Student Name : "+sname);
+	}
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		Student1 obj1=new Student1(100,"mahesh");
+		Student1 obj2=new Student1(200,"rama");
+		
+		obj1.display();
+		obj2.display();
+
+	}
+
+}
+
+
+
+Example : with out this keyword using diferent arguments
+--------------------------------------------------------
+
+package Examples;
+
+public class Student1 
+{
+	
+	int sno;
+	String sname;
+	
+	Student1(int no,String name)
+	{
+	   sno=no;
+	   sname=name;
+	}
+	
+	void display()
+	{
+		System.out.println("Student number : "+sno);
+		System.out.println("Student Name : "+sname);
+	}
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+		
+		Student1 obj1=new Student1(100,"mahesh");
+		Student1 obj2=new Student1(200,"rama");
+		
+		obj1.display();
+		obj2.display();
+
+	}
+
+}
+
+
+
+

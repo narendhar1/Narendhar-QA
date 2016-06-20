@@ -1,0 +1,60 @@
+
+
+
+CONSTructor-
+Example :
+---------
+
+package ExamplePackages;
+
+public class Class1 
+{
+	
+	String Myname;
+	
+	// default constructor
+	public Class1()
+	{
+		Myname="Raju";
+		System.out.println("Default constructor : "+Myname);
+		
+	}
+	
+	// argument constructor
+	public Class1(String myname)
+	{
+		Myname=myname;
+		System.out.println("My Name is : "+Myname);
+	}
+	
+	// copy constructor
+	
+	public Class1(Class1 obj)
+	{
+		Myname=obj.Myname;
+		System.out.println("My Name is : "+Myname);
+	}
+
+	public static void main(String[] args)
+	{
+		// default constructor access
+		Class1 obj=new Class1();
+		
+		
+		//  Argument constructor access
+		Class1 obj2=new Class1("mahesh");		
+		
+		
+		// Copy constructor access
+		Class1 obj3=new Class1(obj);
+		Class1 obj4=new Class1(obj2);
+			
+
+	}
+
+}
+
+
+
+
+
