@@ -1,0 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package database.;
+
+import java.util.Random;
+/**
+ *
+ * @author Student
+ */
+public class PermuteArray {
+    int[] arr;
+         PermuteArray(int[] a){
+             arr=a;
+         }
+     public static int randInt(int min,int max){
+    	 int randomNum = randInt (min, max);
+         return randomNum;
+     }    
+       public void permuteBySorting()
+       {
+           int temp;
+           int[] prior;
+           prior= new int[arr.length];
+           for(int i=0;i<arr.length;i++){
+               prior[i]=(int)(Math.random()*arr.length);
+           }
+           for(int i=0;i<prior.length;i++){
+               for(int j=i+1;j<prior.length;j++){
+                   if(prior[j]<prior[i]){
+                       temp=prior[i];
+                       prior[i]=prior[j];
+                       prior[j]=temp;
+                               
+                       temp=arr[i];
+                       arr[i]=arr[j];
+                       arr[j]=temp;
+                   }
+               }
+           }
+       }
+
+}
