@@ -1,0 +1,90 @@
+package arrayExample;
+
+public class Model1 {
+
+	public static void main(String[] args)
+	{
+		
+		// declare the array
+		int[] a=new int[5];		
+		// intputs		
+		a[0]=10;
+		a[1]=20;
+		a[2]=30;
+		a[3]=40;
+		a[4]=50;
+		
+		// model2		
+		int[] b={10,20,30,40,50,60,70,80,90};
+		
+		
+		// display model1 using for loop
+		System.out.println("Using for loop a values");
+		for(int i=0;i<5;i++)
+		{
+			System.out.println(a[i]);
+		}
+		
+		// display model2 using for loop
+		System.out.println("Using for loop b values");
+		for(int i=0;i<b.length;i++)
+		{
+			System.out.println(b[i]);
+		}
+		
+		
+		// display the model1 using for each
+		System.out.println("Using for each a values");
+		for(int elements:a)
+		{
+			System.out.println(elements);
+		}
+		
+		System.out.println("Using for each b values");
+		// display the model2 using for each
+		for(int elements : b)
+		{
+			System.out.println(elements);
+		}
+		
+		
+
+	}
+
+}
+
+
+
+Example 2:
+
+package arrayExample;
+
+public class Model2 {
+
+	public static int[] Getvalues()
+	{
+		
+		int result1=100;
+		
+		int result2=200;
+		
+		int[] r={result1,result2};
+		
+		return r;
+		
+	}
+	
+	public static void main(String[] args)
+	{
+		// TODO Auto-generated method stub
+		
+		int[] a=Getvalues();
+		
+		for(int values:a)
+		{
+		System.out.println("result values : "+values);
+		}
+
+	}
+
+}
