@@ -1,0 +1,19 @@
+
+In Manual Testing , Testers manually execute test cases without using any automation tools. Manual testing is the most primitive of all testing types and helps find bugs in the software system.
+
+ Any new application must be manually tested before its testing can be automated. Manual testing requires more effort, but is necessary to check  automation feasibility.
+
+Manual Testing does not require knowledge of any testing tool. One of the  Software Testing Fundamental is "100% Automation is not possible". This makes Manual Testing imperative. 
+
+The goal of Manual Testing is to ensure that the application is error free and it is working in conformance to the specified functional requirements. Test Suites or cases ,are designed during the testing phase and should have 100% test coverage.
+
+It also makes sure that reported defects are fixed by developers and re-testing has been performed by testers on the fixed defects. Basically, this testing checks the quality of the system and delivers bug-free product to the customer.
+
+
+types of manual testing-
+Acceptance Testing-Acceptance testing, a testing technique performed to determine whether or not the software system has met the requirement specifications. The main purpose of this test is to evaluate the system's compliance with the business requirements and verify if it is has met the required criteria for delivery to end users.
+black box testing-Black-box testing is a method of software testing that examines the functionality of an application without peering into its internal structures or workings. This method of test can be applied to virtually every level of software testing: unit, integration, system and acceptance.
+white box testing-White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) is a method of testing software that tests internal structures or workings of an application, as opposed to its functionality (i.e. black-box testing).
+integration testing -Integration testing is a software testing methodology used to test individual software components or units of code to verify interaction between various software components and detect interface defects. Components are tested as a single group or organized in an iterative manner. After the integration testing has been performed on the components, they are readily available for system testing.
+system testing-System testing of software or hardware is testing conducted on a complete, integrated system to evaluate the system's compliance with its specified requirements. System testing falls within the scope of black-box testing, and as such, should require no knowledge of the inner design of the code or logic.
+unit testing-Unit testing is a software development process in which the smallest testable parts of an application, called units, are individually and independently scrutinized for proper operation. Unit testing is often automated but it can also be done manually.
