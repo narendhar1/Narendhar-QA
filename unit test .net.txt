@@ -1,0 +1,92 @@
+public enum TransactionType
+    {
+        Credit,
+        Debit
+    }
+    public class BankTransaction
+    {
+        public BankTransaction(TransactionType type, double amount,DateTime transactionDate)
+        {
+            TypeOfTransaction = type;
+            Amount = amount; 
+            TransactionDate = transactionDate;
+        }
+        public TransactionType TypeOfTransaction { get;  }
+        public double Amount { get;  }
+        public DateTime TransactionDate { get;  }
+
+        public override bool Equals(object obj)
+        {
+            
+            var transaction = obj as BankTransaction ;
+            if (obj == null) return false;
+
+            return this.Amount == transaction.Amount &&
+                this.TypeOfTransaction == transaction.TypeOfTransaction &&
+                this.TransactionDate == transaction.TransactionDate;
+
+
+
+        }
+        public override int GetHashCode()
+        {
+           return  RuntimeHelpers.GetHashCode(this);
+        }
+    }
+    public class Account
+    {
+        private string customerName;
+        private double balance;
+        private Account()
+        {
+        }
+
+        public Account(string customerName, double balance)
+        {
+            this.customerName = customerName;
+            this.balance = balance;
+            Transactions = new List<BankTransaction>();
+        }
+
+        public string CustomerName
+        {
+            get { return customerName; }
+        }
+
+        public double Balance
+        {
+            get { return balance; }
+        }
+
+        public List<BankTransaction> Transactions { get; }
+
+        public void Debit(double amount)
+        {
+            if (amount > balance)
+            {
+                throw new ArgumentOutOfRangeException("Invalid Amount");
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("Invalid Amount");
+            }
+
+            balance += amount; // INCORRECT CODE
+
+            Transactions.Add(new BankTransaction(TransactionType.Debit, amount,DateTime.Now));
+        }
+
+        public void Credit(double amount)
+        {
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException("Invalid Amount");
+            }
+
+            balance += amount;
+            Transactions.Add(new BankTransaction(TransactionType.Debit, amount,DateTime.Now)); // INCORRECT CODE
+        }
+
+
