@@ -1,0 +1,18 @@
+public static boolean isPrime(int num)
+	{
+		if(num<=0) 
+		{
+			System.out.println("not a natural number");
+			return false;           302-357-2319
+		}
+		if(num==1)
+			{return true;}
+		int limit=(int) Math.sqrt((double)num);
+		for(int i=2;i<limit;i++)
+		{
+			if(num%i==0)
+			{
+				return false;
+			}
+		}
+		return true;
