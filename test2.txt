@@ -1,0 +1,114 @@
+//Gmail Upload
+package assignment;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.thoughtworks.selenium.webdriven.commands.KeyEvent;
+
+public class gmailupload {
+public static void main(String[] args) throws Exception {
+	String url="https:/www.gmail.com";
+	System.setProperty("webdriver.chrome.driver","E:\\Java Softwares\\chromedriver.exe" );
+	WebDriver driver=new ChromeDriver();
+	driver.get(url);
+	driver.manage().window().maximize();
+	driver.findElement(By.id("Email")).sendKeys("ajay.pillagolla@gmail.com");
+	driver.findElement(By.id("next")).click();
+	driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+	driver.findElement(By.id("Passwd")).sendKeys("9059026263");
+	driver.findElement(By.id("signIn")).click();
+	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+//compose 
+	driver.findElement(By.xpath(".//div[@class='T-I J-J5-Ji T-I-KE L3']")).click();
+	
+	driver.findElement(By.xpath(".//*[@class='a1 aaA aMZ']")).click();
+			
+	//set the filename in clipboard
+	 StringSelection ss = new StringSelection("E:\\Market stuff\\Test.docx");
+	 Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+	 //Perform native keywords in ctrl+V and enter
+Robot robot=new Robot();
+//robot.keyPress(java.awt.event.KeyEvent.VK_ENTER);
+//robot.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
+//press ctrl+v
+robot.keyPress(java.awt.event.KeyEvent.VK_CONTROL);
+robot.keyPress(java.awt.event.KeyEvent.VK_V);
+//release ctrl+v
+robot.keyRelease(java.awt.event.KeyEvent.VK_CONTROL);
+robot.keyRelease(java.awt.event.KeyEvent.VK_V);
+//press enter
+robot.keyPress(java.awt.event.KeyEvent.VK_ENTER);
+robot.keyRelease(java.awt.event.KeyEvent.VK_ENTER);
+
+
+	
+}
+}
+
+//gmaildownload
+package assignment;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class gmaildownload {
+public static void main(String[] args) throws Exception {
+	String url="https:/www.gmail.com";
+	System.setProperty("webdriver.chrome.driver","E:\\Java Softwares\\chromedriver.exe" );
+	WebDriver driver=new ChromeDriver();
+	//WebDriver driver=new FirefoxDriver();
+	driver.get(url);
+	driver.manage().window().maximize();
+	driver.findElement(By.id("Email")).sendKeys("ajay.pillagolla@gmail.com");
+	driver.findElement(By.id("next")).click();
+	driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+	driver.findElement(By.id("Passwd")).sendKeys("9059026263");
+	driver.findElement(By.id("signIn")).click();
+	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+	//click on sent mail
+	driver.findElement(By.linkText("Sent Mail")).click();
+	//click on first mail in the mail box
+	driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
+	
+    WebElement webelement= driver.findElement(By.xpath(".//*[@name='depositverification']"));
+	JavascriptExecutor jse = (JavascriptExecutor)driver;
+	jse.executeScript("arguments[0].click()", webelement); 
+    
+	//Move to dowload element 
+	Actions builder=new Actions(driver);
+	WebElement webelement1= driver.findElement(By.xpath(".//*[@id=':oo']"));
+	builder.moveToElement(webelement1).build().perform();
+   System.out.println("mved to element");
+	
+//click on download element
+   WebElement webelement2=driver.findElement(By.xpath(".//*[@id=':15y']/div"));
+	JavascriptExecutor jse1 = (JavascriptExecutor)driver;
+	jse1.executeScript("arguments[0].click()", webelement2); 
+    //String filepath="path";
+   // FileInputStream file=new FileInputStream(filepath);
+ 
+
+}
+}
+
