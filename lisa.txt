@@ -1,0 +1,20 @@
+Create a custom eventlistener that handles the event_assert event
+var custom_listener = new com.itko.lisa.test.TestEventListener(){
+public void testEvent(com.itko.lisa.test.TestEvent testevent){
+if(testevent.getEventId() == com.itko.lisa.test.TestEvent.EVENT_ASSERT){
+testExec.setStateValue("fi_assertionResult",testevent.getLongDesc()); //tell what to do with the event. In this case stores the long message in the fi_assertionResult property
+}
+}
+};
+testExec.setStateValue("Custom_Listener",custom_listener); //Stores a referens to the eventlistener so we can later remove it
+testExec.getTestEventMgr().addListener(custom_listener,com.itko.lisa.test.TestEvent.noFilter); //Add the listener to the testcase
+
+
+var custom_listener = testExec.getStateObject("Custom_Listener");
+ 
+if(custom_listener !=null){
+testExec.log("Removing listener :" + custom_listener );
+testExec.getTestEventMgr().removeListener(custom_listener); // Remove the listener from the testcase
+}else{
+testExec.log("Unable to remove listener :" + custom_listener );
+}
