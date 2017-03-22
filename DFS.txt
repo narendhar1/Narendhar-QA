@@ -1,0 +1,38 @@
+ [TestMethod]
+        [TestCategory("DFS_DSA_DPA_RunCredit")]
+        [DeploymentItem("TestData\\DFS_DSA_2216098_DPA_RunCredit.csv"),
+           DataSource("System.Data.OleDb", "Provider =Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|;;Extended Properties=\"Text;HDR=Yes\"",
+              "DFS_DSA_2216098_DPA_RunCredit#csv", DataAccessMethod.Sequential)]
+        public void DFS_DSA_2216098_DPA_RunCredit()
+        {
+            string companyNumber = TestContext.DataRow[Constants.QuoteData.compNo].ToString();
+            string customerSet = TestContext.DataRow[Constants.QuoteData.customerSet].ToString();
+
+            int catalogId = Convert.ToInt32(TestContext.DataRow[Constants.QuoteData.catalogId]);
+            string orderCode = TestContext.DataRow[Constants.QuoteData.orderCode].ToString();
+            int quantity = Convert.ToInt32(TestContext.DataRow[Constants.QuoteData.quantity]);
+
+            string skuId = TestContext.DataRow[Constants.QuoteData.skuId].ToString();
+            string customerNumber = TestContext.DataRow[Constants.QuoteData.customerNo].ToString();
+
+            string shipmentName = Constants.ShipmentName.SHIPMENTNAME_STANDARD_GROUND;
+            string shipmentMethod = Constants.ShipmentMethod.SHIPMENTMETHOD_LD;
+
+            List<DellQuoteItem> items = new List<DellQuoteItem>();
+            items.Add(QuoteItemBuilder.BuildSnPItem(quantity, catalogId, skuId));
+            items.Add(QuoteItemBuilder.BuildConfigItem(quantity, orderCode, customerSet, Constants.languageId, Constants.countryId, Constants.region, Constants.displayCurrency));
+            var quoteId = CreateAndValidateQuote(
+                              companyNumber, customerSet,
+                              customerNumber,
+                             shipmentName,
+                              shipmentMethod, items
+                              );
+            var status = CreateAndValidateSalesOrder(SalesOrderBuilder.BuildSalesOrder(), quoteId);
+
+            Assert.IsTrue(status == GCMPOrderStatus.CMP);
+
+
+        }
+
+    }
+}
